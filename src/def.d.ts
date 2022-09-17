@@ -8,3 +8,7 @@ interface Position {
 interface ClientToServerEvents {
     updatePosition: (pos: Position) => void;    
 }
+
+interface ServerToClientEvents {
+    playerUpdate: (playerName: string, pos: Position) => void;
+}
