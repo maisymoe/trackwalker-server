@@ -1,0 +1,24 @@
+{
+    "name": "trackwalker-server",
+    "version": "1.0.0",
+    "description": "The server for Trackwalker.",
+    "main": "dist/index.js",
+    "scripts": {
+        "start": "node .",
+        "build": "rimraf dist && tsc",
+        "dev": "rimraf dist && tsc-watch --onSuccess \"npm run start\""
+    },
+    "keywords": [
+        "CrossCode"
+    ],
+    "author": "Beef",
+    "license": "BSD-3-Clause",
+    "devDependencies": {
+        "rimraf": "^3.0.2",
+        "tsc-watch": "^5.0.3",
+        "typescript": "^4.8.3"
+    },
+    "dependencies": {
+        "socket.io": "^4.5.2"
+    }
+}
