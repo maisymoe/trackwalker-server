@@ -13,6 +13,8 @@ io.use((socket, next) => {
     next();
 })
 
+const players = new Array<Player>();
+
 // Listen for connections
 io.on("connection", (socket: TrackwalkerSocket) => {
     socket.player = {
@@ -20,9 +22,24 @@ io.on("connection", (socket: TrackwalkerSocket) => {
         id: socket.id,
     };
 
+    players.push(socket.player);
+
+    // TODO: Duplicate connections bug
+
+    console.log(`${socket.player.username} (${socket.id}) connected`);
     socket.broadcast.emit("playerJoin", socket.player);
-    socket.on("disconnect", () => socket.broadcast.emit("playerLeave", socket.player!));
+
+    socket.on("disconnect", () => { 
+        socket.broadcast.emit("playerLeave", socket.player!);
+        players.splice(players.indexOf(socket.player!));
+        console.log(`${socket.player!.username} (${socket.id}) disconnected`);
+    });
+
     socket.on("positionUpdate", (pos: Position) => socket.broadcast.emit("playerUpdate", socket.player!, pos));
+
+    socket.on("requestPlayers", () => {
+        socket.emit("recievePlayers", players);
+    });
 });
 
 console.log(`Listening on ${port}`);

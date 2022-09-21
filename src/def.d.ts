@@ -19,11 +19,13 @@ declare global {
     
     interface ClientToServerEvents {
         positionUpdate: (pos: Position) => void;
+        requestPlayers: () => void;
     }
     
     interface ServerToClientEvents {
         playerJoin: (player: Player) => void;
         playerLeave: (player: Player) => void;
         playerUpdate: (player: Player, pos: Position) => void;
+        recievePlayers: (players: Player[]) => void;
     }
 }
