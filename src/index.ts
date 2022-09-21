@@ -35,7 +35,8 @@ io.on("connection", (socket: TrackwalkerSocket) => {
         console.log(`${socket.player!.username} (${socket.id}) disconnected`);
     });
 
-    socket.on("positionUpdate", (pos: Position) => socket.broadcast.emit("playerUpdate", socket.player!, pos));
+    socket.on("positionUpdate", (pos: Position) => socket.broadcast.emit("playerPositionUpdate", socket.player!, pos));
+    socket.on("animationUpdate", (anim: string, direction: Vec2) => socket.broadcast.emit("playerAnimationUpdate", socket.player!, anim, direction));
 
     socket.on("requestPlayers", () => {
         socket.emit("recievePlayers", players);
